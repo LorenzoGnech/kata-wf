@@ -20,6 +20,7 @@ describe('string-calculator', () => {
             const result = calculator(inputValue);
             expect(result).toBe(42);
         });
+
     });
 
     describe('Step 2: handle unknown amount of numbers', () => {
@@ -39,6 +40,22 @@ describe('string-calculator', () => {
             const inputValues = randomInput.join();
             const result = calculator(inputValues);
             expect(result).toBe(sum);
+        });
+
+    });
+
+    describe('Step 3: handle new lines between numbers', () => {
+
+        it('A new line in the input in place of commas should not be a problem', () => {
+            const inputValue = '2\n40,32';
+            const result = calculator(inputValue);
+            expect(result).toBe(74);
+        });
+
+        it('Multiple new lines in the input in place of commas should not be a problem', () => {
+            const inputValue = '2\n5,26\n5\n4';
+            const result = calculator(inputValue);
+            expect(result).toBe(42);
         });
 
     });
