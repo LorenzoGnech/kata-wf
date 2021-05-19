@@ -82,4 +82,24 @@ describe('string-calculator', () => {
 
     });
 
+    describe('Step 5: throw error when dealing with negative numbers', () => {
+
+        it('If a negative value is passed, an error should be thrown', () => {
+            const inputValue = '10,30,-2';
+            expect(() => {add(inputValue)}).toThrowError(new Error("negatives not allowed: -2"));
+        });
+
+        it('If a negative value is passed with a custom delimiter, an error should be thrown', () => {
+            const inputValue = '//;\n10;3;-2';
+            expect(() => {add(inputValue)}).toThrowError(new Error("negatives not allowed: -2"));
+        });
+
+        it('If multiple negative values are passed, an error printing all of them should be thrown', () => {
+            const inputValue = '-10,-7,2,5';
+            expect(() => {add(inputValue)}).toThrowError(new Error("negatives not allowed: -10,-7"));
+        });
+
+
+    });
+
 });
