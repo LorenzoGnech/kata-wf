@@ -57,6 +57,40 @@ describe('string-calculator', () => {
             const result = calculator(inputValue);
             expect(result).toBe(42);
         });
+    
+    });
+
+    describe('Step 4: support different delimiters', () => {
+
+        it('A delimiter defined with the correct syntax at the start of the input should be supported', () => {
+            const inputValue = '//[;]\n10;30;2';
+            const result = calculator(inputValue);
+            expect(result).toBe(42);
+        });
+
+        it('A delimiter comprised of multiple characters should be supported', () => {
+            const inputValue = '//[;!?]\n10;!?30;!?2';
+            const result = calculator(inputValue);
+            expect(result).toBe(42);
+        });
+    
+        it('Using a special character like [ as delimiter should be supported', () => {
+            const inputValue = '//[[]\n10[30[2';
+            const result = calculator(inputValue);
+            expect(result).toBe(42);
+        });
+
+        it('Using a special character like ] as delimiter should be supported', () => {
+            const inputValue = '//[]]\n10]30]2';
+            const result = calculator(inputValue);
+            expect(result).toBe(42);
+        });
+
+        it('Using both special characters [ and ] as delimiters should be supported', () => {
+            const inputValue = '//[[]]\n10[]30[]2';
+            const result = calculator(inputValue);
+            expect(result).toBe(42);
+        });
 
     });
 
