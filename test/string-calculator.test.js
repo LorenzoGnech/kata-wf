@@ -99,6 +99,32 @@ describe('string-calculator', () => {
             expect(() => {add(inputValue)}).toThrowError(new Error("negatives not allowed: -10,-7"));
         });
 
+    });
+
+    describe('Step 6: ignore big numbers', () => {
+
+        it('If a big number is passed, its value should not be counter in the sum', () => {
+            const inputValue = '10,30,1005,2';
+            const result = add(inputValue);
+            expect(result).toBe(42);
+        });
+
+        it('If multiple big numbers are passed, their values should not be counter in the sum', () => {
+            const inputValue = '10,3000,1050,2,30';
+            const result = add(inputValue);
+            expect(result).toBe(42);
+        });
+
+        it('If only big numbers are passed, the result should be 0', () => {
+            const inputValue = '100000,3000,1005,20003232';
+            const result = add(inputValue);
+            expect(result).toBe(0);
+        });
+
+        it('If a negative big numbers is passed, the function should throw an error', () => {
+            const inputValue = '10,30,-1050,2';
+            expect(() => {add(inputValue)}).toThrowError(new Error("negatives not allowed: -1050"));
+        });
 
     });
 
