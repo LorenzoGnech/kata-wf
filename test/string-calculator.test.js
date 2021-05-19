@@ -1,23 +1,23 @@
-const {calculator} = require('../src/string-calculator')
+const {add} = require('../src/string-calculator')
 
 describe('string-calculator', () => {
     
     describe('Step 1: basic operations', () => {
 
         it('Empty string as input should return 0', () => {
-            const result = calculator('');
+            const result = add('');
             expect(result).toBe(0);
         });
 
         it('Single value as input should return the same value', () => {
             const inputValue = '23';
-            const result = calculator(inputValue);
+            const result = add(inputValue);
             expect(result).toBe(23);
         });
 
         it('Two values as input should return the sum of the two', () => {
             const inputValue = '2,40';
-            const result = calculator(inputValue);
+            const result = add(inputValue);
             expect(result).toBe(42);
         });
 
@@ -27,7 +27,7 @@ describe('string-calculator', () => {
 
         it('3 values as input should return the sum of them', () => {
             const inputValue = '2,40,32';
-            const result = calculator(inputValue);
+            const result = add(inputValue);
             expect(result).toBe(74);
         });
 
@@ -38,7 +38,7 @@ describe('string-calculator', () => {
             const randomInput = randomArray(getRandomInt(max_value), max_value);
             const sum = randomInput.reduce((t, n) => t+n);
             const inputValues = randomInput.join();
-            const result = calculator(inputValues);
+            const result = add(inputValues);
             expect(result).toBe(sum);
         });
 
@@ -48,13 +48,13 @@ describe('string-calculator', () => {
 
         it('A new line in the input in place of commas should not be a problem', () => {
             const inputValue = '2\n40,32';
-            const result = calculator(inputValue);
+            const result = add(inputValue);
             expect(result).toBe(74);
         });
 
         it('Multiple new lines in the input in place of commas should not be a problem', () => {
             const inputValue = '2\n5,26\n5\n4';
-            const result = calculator(inputValue);
+            const result = add(inputValue);
             expect(result).toBe(42);
         });
     
@@ -63,32 +63,20 @@ describe('string-calculator', () => {
     describe('Step 4: support different delimiters', () => {
 
         it('A delimiter defined with the correct syntax at the start of the input should be supported', () => {
-            const inputValue = '//[;]\n10;30;2';
-            const result = calculator(inputValue);
+            const inputValue = '//;\n10;30;2';
+            const result = add(inputValue);
             expect(result).toBe(42);
         });
 
         it('A delimiter comprised of multiple characters should be supported', () => {
-            const inputValue = '//[;!?]\n10;!?30;!?2';
-            const result = calculator(inputValue);
+            const inputValue = '//;!?\n10;!?30;!?2';
+            const result = add(inputValue);
             expect(result).toBe(42);
         });
     
-        it('Using a special character like [ as delimiter should be supported', () => {
-            const inputValue = '//[[]\n10[30[2';
-            const result = calculator(inputValue);
-            expect(result).toBe(42);
-        });
-
-        it('Using a special character like ] as delimiter should be supported', () => {
-            const inputValue = '//[]]\n10]30]2';
-            const result = calculator(inputValue);
-            expect(result).toBe(42);
-        });
-
-        it('Using both special characters [ and ] as delimiters should be supported', () => {
-            const inputValue = '//[[]]\n10[]30[]2';
-            const result = calculator(inputValue);
+        it('Using a special character like / as delimiter should be supported', () => {
+            const inputValue = '///\n10/30/2';
+            const result = add(inputValue);
             expect(result).toBe(42);
         });
 

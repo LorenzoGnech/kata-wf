@@ -1,11 +1,11 @@
-const calculator = (inputString) => {
+const add = (inputString) => {
     if(inputString == ''){
         return 0;
     }
     let delimiter = ","
     if(inputString.startsWith("//")){
         delimiter = getDelimiter(inputString)
-        let delimiterEnd = findLastPar('\n', inputString) + 1
+        let delimiterEnd = inputString.indexOf('\n') + 1
         inputString = inputString.substring(delimiterEnd, inputString.length);
     }
     inputString = inputString.replace(/\n/g,delimiter)
@@ -19,10 +19,9 @@ const sumValues = (tot, num) => {
 }
 
 const getDelimiter = (string) => {
-    string = string.substring(0, string.indexOf('\n'))
-    let start = string.indexOf('[')
-    let end = findLastPar(']',string)
-    return string.substring(start+1, end);
+    let cleanString = string.substring(2, string.length)
+    let end = cleanString.indexOf('\n')
+    return cleanString.substring(0, end);
 }
 
 const findLastPar = (pattern, string) => { // Returns the last index where the pattern is present in the string
@@ -32,5 +31,5 @@ const findLastPar = (pattern, string) => { // Returns the last index where the p
 
 
 module.exports = {
-    calculator
+    add
 };
